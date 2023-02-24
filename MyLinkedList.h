@@ -5,6 +5,7 @@
 #include <iostream>
 
 template <typename DataType>
+
 class MyLinkedList
 {
   private:
@@ -214,6 +215,7 @@ class MyLinkedList
     // default constructor
     MyLinkedList()
     { 
+        
         init(); 
     }
   
@@ -277,28 +279,28 @@ class MyLinkedList
     iterator begin()
     { 
         // code begins
-        return &DataType[0];
+        return head->next;
         // code ends 
     }
 
     const_iterator begin() const
     { 
         // code begins
-        return &DataType[0];
+        return head->next;
         // code ends 
     }
   
     iterator end()
     { 
         // code begins
-        return &DataType[size()];
+        return tail;
         // code ends 
     }
 
     const_iterator end() const
     { 
         // code begins
-        return &DataType[size()];
+        return tail;
         // code ends 
     }
   
@@ -464,10 +466,10 @@ class MyLinkedList
             //Store next
             next = curNode->next;
             // Reverse current node's pointer
-            current->next = prev;
+            curNode->next = prev;
             // Move pointers one position ahead.
-            prev = current;
-            current = next;
+            prev = curNode;
+            curNode = next;
         }
         head = prev;
         // code ends
@@ -493,12 +495,11 @@ class MyLinkedList
     bool swapAdjElements(iterator& itr)
     {
         // code begins
-        if(itr == curNode->next){
-            swap()
-            return true;
-        }else{
+        if(itr == end() or itr == --end()){
             return false;
         }
+        swap(itr.current->data, itr.current->next->data);
+        return true;
         // code ends
     }
 
