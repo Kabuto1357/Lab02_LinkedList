@@ -457,21 +457,19 @@ class MyLinkedList
     void reverseList()
     {
         // code begins
-        //Initialize current, previous and next pointers
-        Node *curNode = head;
-        Node *prev = NULL;
-        Node *next = NULL;
+        Node *CurNode = head->next;
+        tail = head;
+        tail->prev = head->next;
+        Node *temp = NULL;
 
-        while(curNode != NULL){
-            //Store next
-            next = curNode->next;
-            // Reverse current node's pointer
-            curNode->next = prev;
-            // Move pointers one position ahead.
-            prev = curNode;
-            curNode = next;
+        while(CurNode != NULL){
+            temp = CurNode->prev;
+            CurNode->prev = CurNode->next;
+            CurNode->next = temp;
+            CurNode = CurNode->prev;
         }
-        head = prev;
+
+        head = temp->prev;
         // code ends
     }
  
@@ -479,11 +477,11 @@ class MyLinkedList
     MyLinkedList<DataType>& appendList(MyLinkedList<DataType>&& rlist) 
     {
         // code begins
-        Node *curNode = rlist.head->next;
+        iterator jumper = rlist.head->next;
 
         for(int i = 0; i < rlist.theSize; i++){
-            push_back(curNode->data);
-            curNode = curNode->next;
+            push_back(*jumper);
+            jumper++;
         }
 
         return *this;
